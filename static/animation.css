@@ -1,0 +1,60 @@
+/*
+   Author: Prince Raj
+   Description: The CSS file defines styling rules for a web page, influencing the visual presentation, layout, and responsiveness of HTML elements to create an aesthetically pleasing and cohesive user interface.
+*/
+
+
+
+.text-effect{
+    color: #fff;
+    font-family: 'Secular One', sans-serif;
+    font-size: 50px;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    margin-top: 20px;
+}
+.text-effect span{
+    display: inline-block;
+    animation: zoomup 2s linear infinite;
+    animation-delay: calc(200ms * var(--i));
+}
+.text-effect span:nth-child(1){ --i:1; }
+.text-effect span:nth-child(2){ --i:2; }
+.text-effect span:nth-child(3){ --i:3; }
+.text-effect span:nth-child(4){ --i:4; }
+.text-effect span:nth-child(5){ --i:5; }
+.text-effect span:nth-child(6){ --i:6; }
+.text-effect span:nth-child(7){ --i:7; }
+.text-effect span:nth-child(8){ --i:8; }
+.text-effect span:nth-child(9){ --i:9; }
+.text-effect span:nth-child(10){ --i:10; }
+@keyframes zoomup{
+    0%,
+    100% {
+        color: #00c2ba;
+        filter: blur(1px);
+        text-shadow: 0 0 10px #00c2ba, 0 0 20px #00c2ba, 0 0 30px #00c2ba,0 0 40px #00c2ba, 
+                     0 0 60px #00c2ba, 0 0 80px #00c2ba, 0 0 100px #00c2ba,0 0 120px #00c2ba;
+    }
+    5%,95% {
+        color: #fff;
+        filter: blur(0);
+        text-shadow: none;
+    }
+}
+@media only screen and (max-width: 990px){
+    .text-effect{ font-size: 90px; }
+}
+@media only screen and (max-width: 767px){
+    .text-effect{ font-size: 70px; }
+}
+@media only screen and (max-width: 576px){
+    .text-effect{ font-size: 50px; }
+}
+@media only screen and (max-width: 479px){
+    .text-effect{
+        font-size: 40px;
+        line-height: 50px;
+    }
+}

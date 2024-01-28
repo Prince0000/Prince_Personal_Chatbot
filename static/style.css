@@ -1,0 +1,138 @@
+/*
+   Author: Prince Raj
+   Description: The CSS file defines styling rules for a web page, influencing the visual presentation, layout, and responsiveness of HTML elements to create an aesthetically pleasing and cohesive user interface.
+*/
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    /* background-color: #121212; */
+    background: url("./back.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+.generating {
+    color: red;
+}
+.speakbtn{
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: #091646;
+    color: white;
+    padding: 5px;
+    text-align: center;
+    height: 25px;
+    width: 25px;
+}
+#voiceButton{
+    cursor: pointer;
+    padding: 8px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-top-right-radius: 50px;
+    border-bottom-right-radius: 50px;
+    background-color: #8f1111;
+    color: white;
+}
+
+#buttonInput {
+    margin-left: 10px;
+    padding: 12px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: #135b15;
+    color: #fff;
+    border: none;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    cursor: pointer;
+}
+
+#chatbox {
+    max-width: 600px;
+    min-height: 70vh;
+    max-height: 70vh;
+    overflow-x: auto;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    margin: 20px auto 0;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 5px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    box-shadow: 0 4px 8px rgba(35, 1, 251, 0.2);
+    z-index: 1;
+}
+
+
+.userText,
+.botText {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.userText {
+    background-color: #e1f7d5;
+    text-align: right;
+}
+
+.botText {
+    width: 80;
+    background-color: #c2e2ff;
+    overflow-x: auto;
+    text-wrap: wrap;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#userInput {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: #373a42;
+    border-radius: 5px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+}
+
+#textInput {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }

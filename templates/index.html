@@ -1,0 +1,131 @@
+<!-- Author: Prince Raj -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prince Raj's Personal ChatBot</title>
+  <link rel="stylesheet" type="text/css" href="/static/style.css">
+  <link rel="stylesheet" href="./static/animation.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+</head>
+
+<body>
+  <!-- Decorative text effect -->
+  <div class="text-effect">
+    <span>P</span><span>R</span><span>I</span><span>N</span><span>C</span><span>E</span> <span>-</span>
+    <span>R</span><span>a</span><span>j</span>
+  </div>
+
+  <!-- Chatbot interface -->
+  <div>
+    <div id="chatbox">
+      <p class="botText" data-text="Greetings! I'm a chatbot created by Prince Raj. How may I assist you today?">
+        <span>Greetings! I'm a chatbot created by Prince Raj. How may I assist you today?</span></p>
+    </div>
+    <div id="userInput">
+      <input id="textInput" type="text" name="msg" placeholder="How can I assist you?">
+      <input id="buttonInput" type="submit" value="Send">
+      <!-- Voice search button -->
+      <span class="material-symbols-outlined" id="voiceButton">mic</span>
+    </div>
+    <script>
+      var currentUtterance;
+
+      function getBotResponse() {
+        var rawText = $("#textInput").val();
+        var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
+        $("#textInput").val("");
+        $("#chatbox").append(userHtml);
+
+        $("#chatbox").scrollTop($("#chatbox")[0].scrollHeight);
+
+        var generatingHtml = '<p class="botText generating animate__animated animate__pulse animate__infinite infinite"><span>Generating message...</span></p>';
+        $("#chatbox").append(generatingHtml);
+
+        $("#chatbox").scrollTop($("#chatbox")[0].scrollHeight);
+
+        $.get("/get", { msg: rawText }).done(function (data) {
+          $("#chatbox").find('.botText:contains("Generating message...")').remove();
+
+          var botHtml = `<div class="botText" data-text="${data}">
+                  <span>${data}</span>
+                  <div style="display:flex;">
+                    <span class="material-symbols-outlined speakButton speakbtn" title="Click and wait for Play">volume_up</span>
+                    <span class="material-symbols-outlined pauseButton speakbtn" title="Pause Button">pause_circle</span>
+                  </div>
+               </div>`;
+
+          $("#chatbox").append(botHtml);
+
+          $("#chatbox").scrollTop($("#chatbox")[0].scrollHeight);
+        });
+      }
+
+      function speakText(text) {
+        var speechSynthesis = window.speechSynthesis;
+        if (currentUtterance) {
+          speechSynthesis.cancel(); // Stop the current utterance before speaking a new one
+        }
+        var utterance = new SpeechSynthesisUtterance(text);
+        speechSynthesis.speak(utterance);
+        currentUtterance = utterance;
+      }
+
+      $("#textInput").keypress(function (e) {
+        if (e.which == 13) {
+          getBotResponse();
+        }
+      });
+
+      $("#buttonInput").click(function () {
+        getBotResponse();
+      });
+
+      $("#chatbox").on("click", ".speakButton", function () {
+        var textToSpeak = $(this).closest(".botText").data("text");
+        speakText(textToSpeak);
+      });
+
+      $("#chatbox").on("click", ".pauseButton", function () {
+        var speechSynthesis = window.speechSynthesis;
+        if (currentUtterance) {
+          speechSynthesis.pause();
+        }
+      });
+
+      if ('webkitSpeechRecognition' in window) {
+        var recognition = new webkitSpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = false;
+
+        $("#voiceButton").click(function () {
+          $(this).addClass("animate__animated animate__heartBeat animate__infinite infinite");
+          recognition.start();
+        });
+
+        recognition.onresult = function (event) {
+          var voiceText = event.results[0][0].transcript;
+          $("#textInput").val(voiceText);
+          $("#voiceButton").removeClass("animate__animated animate__heartBeat animate__infinite infinite");
+          getBotResponse();
+        };
+
+        recognition.onerror = function (event) {
+          console.error('Speech recognition error: ', event.error);
+          alert('Speech recognition error: ', event.error);
+          $("#voiceButton").removeClass("animate__animated animate__heartBeat animate__infinite infinite");
+        };
+      } else {
+        $("#voiceButton").prop('disabled', true);
+        console.error('Web Speech API is not supported in this browser.');
+      }
+    </script>
+  </div>
+</body>
+
+</html>
