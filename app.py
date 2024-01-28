@@ -16,7 +16,7 @@ app = Flask(__name__)
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-messages = [{"role": "system", "content": "Hello, I'm a ChatGPT-powered chatbot. How can I help you?"}]
+messages = [{"role": "system", "content": "Hello, I'm a Presonal Chatbot Created By Prince Raj. How can I help you?"}]
 
 def get_chatbot_response(query):
     messages.append({"role": "user", "content": query})
